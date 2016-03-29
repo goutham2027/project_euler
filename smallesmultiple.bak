@@ -1,0 +1,73 @@
+'''
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+'''
+import math
+import time
+
+s = time.time()
+def checkdivisibility(n,start,end):
+    flag = 0
+    divisors = [20,18,14,16,9,12,15]
+   # print n
+    status, primesdict = checkwithprimes(n,start,end)
+    if not status:
+        return False
+    else:
+        for i in range(start,end+1):
+            if not primesdict.has_key(i):
+                if n%i==0:
+                    continue
+                else:
+                    return False
+            else:
+                continue
+      
+        
+        return True
+
+def checkwithprimes(n,start,end):
+    primes = {}
+    curprime =  start
+    while curprime <= end:
+        if n%curprime == 0:
+            primes[curprime] = 0
+            curprime = getnextprime(curprime)
+            continue
+        else:
+            return (False,{0:0})
+    return (True, primes)
+    
+
+def getnextprime(curprime):
+    st = curprime + 1
+    while not isprime(st):
+        st = st + 1
+    return st
+
+def isprime(n):
+    sqroot=int(math.sqrt(n))
+    j=2
+    while j<=sqroot:
+        if n%j==0:
+            return False
+        j=j+1
+    return True
+
+n = 1
+while True:
+    if checkdivisibility(n,2,10):
+        break
+    n=n+1
+
+print n
+
+print time.time() - s
+##print remainder,n,i
+##        if remainder%2 == 0:
+##            continue
+##        else:
+##            print
+##            return False
+##            
